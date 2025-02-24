@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOGO Offer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .offer-container {
+            width: 462px;
+            margin: auto;
+            background: white;
+            padding: 40px 55px;
+            border-radius: 2px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #ff3366;
+            font-weight: bold;
+        }
+        .offer-option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            margin: 20px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 25px;
+        }
+        .offer-option input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+        .offer-option input:checked {
+            border-color: #ff3366;
+            background-color: #ff3366;
+        }
+        .offer-option input:checked::before {
+            content: "";
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 49%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .offer-option input:checked::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: #ff6b82;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .offer-option.active {
+            border-color: #ff3366;
+        }
+        .offer-option.active#unit1 {
+            border-color: red;
+        }
+        .selection-container {
+            display: none;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .offer-option.active .selection-container {
+            display: flex !important;
+            justify-content: space-between;
+            width: 53%;
+            flex-direction: row;
+            position: relative;
+            left: -63px;
+
+        }
+        .selection select {
+            width: 92%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .selection select:focus {
+            border-color: #ff3366;
+            outline: none;
+        }
+        .box{
+            display: flex;
+            /* border-color: rgb(255, 107, 130); */
+            justify-content: center;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+
+        .inner-box{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: end;
+        }
+
+        .active{
+            width: 341px;
+            width: 93%;
+        }
+        
+        #unit2{
+            font-weight: 500;
+            position: relative;
+            top: 3px;
+        }
+
+        .discount {
+            display: inline-block;
+            background: #FF6B82;
+            width: 78px;
+            padding: 3.5px;
+            margin-left: 20px;
+            color: #ffff;
+        }
+        .number{
+            font-weight: 600;
+    /* margin-left: 15px; */
+            position: relative;
+            left: 9px;
+        }
+
+        #hash-label{
+            position: relative;
+    top: 29px;
+    /* right: 7px; */
+    margin-right: 4px;
+        }
+        
+        .button {
+                display: block;
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 9px;
+        color: #ffff;
+        background: #FF6B82;
+        font-size: 16px;
+    /* line-height: 17px; */
+    font-weight: 600;
+        }
+
+        .footer-2 {
+            display: flex;
+            justify-content: space-between;
+        }
+        .free-delivery {
+            color: #ff3366;
+            font-weight: 400;
+        }
+
+        .offer-option .most-popular {
+            background-color: #FF6B82;
+            color: white;
+            padding: 5px;
+            width: 100px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: -7px;
+            right: 10px;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .offer-option .most-popular::before,
+        .offer-option .most-popular::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .offer-option .most-popular::before {
+            left: -8px;
+            border-width: 7px 10px 0px 0px;
+            border-color: #c44a5f00 #ff3366 transparent transparent;
+        }
+        .offer-option .most-popular::after {
+            right: -8px;
+             border-width: 7px 0 0 10px;
+            border-color: #ff336600 #c44a5f00 #000000 #ff3366;
+        }
+
+        .price-div{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            margin-right: 10px;
+
+        }
+
+        .strike-text{
+            font-size: 11px !important;
+            text-decoration: line-through;
+            color: gray;
+            position: relative;
+            left: -14px;
+        }
+        .price{
+            font-weight: 500;
+            font-size: 16.4px;
+        }
+
+
+        .line {
+            flex: 1;
+            height: 1px;
+            background-color: lightgray;
+            margin: 0 10px;
+        }
+
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff7285;
+        }
+
+        .bogo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plus {
+
+            font-size: 22px;
+    margin-right: 6px;
+    line-height: -3px;
+    position: relative;
+    top: 1px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="offer-container">
+        <div class="bogo-container">
+        <div class="line"></div>
+        <h2 class="heading">YAY! It’s BOGO</h2>
+        <div class="line"></div>
+        </div>
+        
+        <div class="offer-option box" onclick="toggleOption(this, 10)">
+            <div class="inner-box">
+             <div>
+                 <input type="radio" name="units" id="unit1" value="10">
+                 <label for="unit1"> <span class= "number">1 Unit</span> <span class="discount">10% Off</span></label>
+                 <span style="display: block;">Standard Price</span>
+             </div>
+            <div class="price-div">
+                <span class="price">$10.00 USD</span>
+                <span class="price strike-text">$24.00 USD</span>
+            </div>
+            </div>
+             <div class="selection-container" >
+                     
+                 <div style="display: flex;flex-wrap: wrap;">
+                     <label id="hash-label">#1</label>
+                     <label id="hash-label">#2</label>
+                 </div>
+ 
+                 <div class="selection">
+                     <span>Size</span>
+                     <select class="size">
+                         <option>S</option>
+                         <option>M</option>
+                         <option>L</option>
+                     </select>
+                     <select class="size">
+                         <option>S</option>
+                         <option>M</option>
+                         <option>L</option>
+                     </select>
+                 </div>
+                 
+                 <div class="selection">
+                     <span>Colour</span>
+                     <select class="color">
+                         <option>Black</option>
+                         <option>Red</option>
+                         <option>Blue</option>
+                     </select>                    
+                     <select class="color">
+                         <option>Colour</option>
+                         <option>Red</option>
+                         <option>Blue</option>
+                     </select>
+                 </div>
+             </div>
+         </div>
+        
+        <div class="offer-option popular active box" onclick="toggleOption(this, 18)">
+            <span class="most-popular">MOST POPULAR</span>
+           <div class="inner-box">
+            <div>
+                <input type="radio" name="units" id="unit2" value="18" checked>
+                <label for="unit2"> <span class= "number">2 Unit</span> <span class="discount">20% Off</span></label>
+            </div>
+           <div class="price-div">
+               <span class="price">$18.00 USD</span>
+               <span class="price strike-text">$24.00 USD</span>
+           </div>
+           </div>
+            <div class="selection-container" style="display: block;">
+                    
+                <div style="display: flex;flex-wrap: wrap;">
+                    <label id="hash-label">#1</label>
+                    <label id="hash-label">#2</label>
+                </div>
+
+                <div class="selection">
+                    <span>Size</span>
+                    <select class="size">
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                    </select>
+                    <select class="size">
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                    </select>
+                </div>
+                
+                <div class="selection">
+                    <span>Colour</span>
+                    <select class="color">
+                        <option>Black</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                    </select>                    
+                    <select class="color">
+                        <option>Colour</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="offer-option box" onclick="toggleOption(this, 24)">
+           <div class="inner-box">
+            <div>
+                <input type="radio" name="units" id="unit3" value="24">
+                <label for="unit3"> <span class= "number">3 Unit</span> <span class="discount">30% Off</span></label>
+            </div>
+           <div class="price-div">
+               <span class="price">$24.00 USD</span>
+               <span class="price strike-text">$24.00 USD</span>
+           </div>
+           </div>
+            <div class="selection-container" >
+                    
+                <div style="display: flex;flex-wrap: wrap;">
+                    <label id="hash-label">#1</label>
+                    <label id="hash-label">#2</label>
+                </div>
+
+                <div class="selection">
+                    <span>Size</span>
+                    <select class="size">
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                    </select>
+                    <select class="size">
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                    </select>
+                </div>
+                
+                <div class="selection">
+                    <span>Colour</span>
+                    <select class="color">
+                        <option>Black</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                    </select>                    
+                    <select class="color">
+                        <option>Colour</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="footer-2">
+            <p class="free-delivery">Free Delivery</p>
+            <p class="total-price">Total : <span id="total-price">$18.00 USD</span></p>
+    
+        </div>
+        
+        <button id="add-to-cart" class="button"> <span class="plus">+</span> Add to Cart</button>
+    </div>
+    
+    <script>
+        function toggleOption(element, price) {
+            document.querySelectorAll(".offer-option").forEach(option => {
+                option.classList.remove("active");
+                option.querySelector(".selection-container").style.display = "none";
+                option.querySelector("input").checked = false;
+                option.style.borderColor = "#ddd";
+            });
+            element.classList.add("active");
+            element.querySelector(".selection-container").style.display = "block";
+            element.querySelector("input").checked = true;
+            document.getElementById("total-price").innerText = "$" + price + ".00 USD";
+            
+            // Change border color
+            if (element.id === "unit1") {
+                element.style.borderColor = "";
+            } else {
+                element.style.borderColor = "#FF6B82";
+            }
+        }
+    </script>
+</body>
+</html>
